@@ -1,8 +1,8 @@
-// const playerSelection = prompt("Enter Rock, Paper or Scissors");
-// const computerSelection = computerPlay();
+const playerSelection = prompt("Enter Rock, Paper or Scissors");
+const computerSelection = computerPlay();
 
-const playerSelection = "scissors";
-const computerSelection = "paper";
+// const playerSelection = "scissors";
+// const computerSelection = "paper";
 
 function computerPlay(){
     a = ["rock", "paper", "scissors"];
@@ -12,7 +12,10 @@ function computerPlay(){
 
 function playRound(playerSelection, computerSelection) {
     playerSelection = playerSelection.toLowerCase();
-    if(playerSelection === "rock" && computerSelection === "paper" || playerSelection === "paper" && computerSelection === "scissors" || 
+    if(playerSelection === computerSelection){
+        return "It's a Draw! Both chose " + playerSelection;
+    }
+    else if(playerSelection === "rock" && computerSelection === "paper" || playerSelection === "paper" && computerSelection === "scissors" || 
     playerSelection === "scissors" && computerSelection === "rock" ){
         return "You lose! " + playerSelection + " loses to " + computerSelection;
     }
