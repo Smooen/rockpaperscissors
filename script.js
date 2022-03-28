@@ -1,8 +1,15 @@
-let playerSelection = prompt("Enter Rock, Paper or Scissors");
+//let playerSelection = prompt("Enter Rock, Paper or Scissors");
 let computerSelection = computerPlay();
-
-// let playerSelection = "scissors";
 // const computerSelection = "paper";
+
+let rockButton = document.getElementById("rock");
+rockButton.addEventListener("click", function(){ display.textContent = playRound("rock", computerSelection); });
+
+let paperButton = document.getElementById("paper");
+paperButton.addEventListener("click", function(){ display.textContent = playRound("paper", computerSelection); });
+
+let scissorsButton = document.getElementById("scissors");
+scissorsButton.addEventListener("click", function(){ display.textContent = playRound("scissors", computerSelection); });
 
 function computerPlay(){
     a = ["rock", "paper", "scissors"];
@@ -11,7 +18,6 @@ function computerPlay(){
 }
 
 function playRound(playerSelection, computerSelection) {
-    playerSelection = playerSelection.toLowerCase();
 
     if(playerSelection === computerSelection){
         return "draw";
@@ -23,9 +29,13 @@ function playRound(playerSelection, computerSelection) {
     else {
         return "win";
     }
+
 }
 
+const display = document.getElementById("display");
 
+
+/*
 function game(){
     let playerScore = 0;
     let computerScore = 0;
@@ -62,13 +72,12 @@ function game(){
         console.log("It's a Draw! Nobody wins");
     }
 }
-
-game(); 
-
+*/
 
 /*
 
 Works, but needs input validation
+Could also make it a game to a specific number of wins
 
 make it a 5 round game
 
