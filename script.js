@@ -12,9 +12,10 @@ let paperButton = document.getElementById("paper");
 let scissorsButton = document.getElementById("scissors");
 
 const display = document.getElementById("display");
+const score = document.getElementById("score");
 
 function computerPlay() {
-    a = ["rock", "paper", "scissors"];
+    a = ["Rock", "Paper", "Scissors"];
     i = Math.floor(Math.random() * 3);
     return a[i];
 }
@@ -25,8 +26,8 @@ function playRound(playerSelection, computerSelection) {
     if (playerSelection === computerSelection) {
         return "draw";
     }
-    else if (playerSelection === "rock" && computerSelection === "paper" || playerSelection === "paper" && computerSelection === "scissors" ||
-        playerSelection === "scissors" && computerSelection === "rock") {
+    else if (playerSelection === "Rock" && computerSelection === "Paper" || playerSelection === "Paper" && computerSelection === "Scissors" ||
+        playerSelection === "Scissors" && computerSelection === "Rock") {
         return "loss";
     }
     else {
@@ -35,44 +36,65 @@ function playRound(playerSelection, computerSelection) {
 
 }
 
-rockButton.addEventListener("click", () => { game("rock"); });
-paperButton.addEventListener("click", () => { game("paper"); });
-scissorsButton.addEventListener("click", () => { game("scissors"); });
+function gameOver() {
+    return playerScore == 5 || computerScore == 5;
+}
 
-
-function game(playerSelection) {
-    while (playerScore || computerScore > 5) {
-        if (playRound(playerSelection, computerSelection) === "win") {
-            playerScore++;
-            display.textContent = "You win! " + playerSelection + " beats " + computerSelection;
-            display.textContent = "Score - You: " + playerScore + " Computer: " + computerScore;
-        }
-        else if (playRound(playerSelection, computerSelection) === "loss") {
-            computerScore++;
-            display.textContent = "You lose! " + playerSelection + " loses to " + computerSelection;
-            display.textContent = "Score - You: " + playerScore + " Computer: " + computerScore;
-        }
-        else {
-            display.textContent = "It's a Draw! Both chose " + playerSelection;
-            display.textContent = "Score - You: " + playerScore + " Computer: " + computerScore;
-        }
-
-        playerSelection = prompt("Enter Rock, Paper or Scissors");
-        computerSelection = computerPlay();
-    }
-
+function winner() {
     if (playerScore > computerScore) {
-        display.textContent = "Congrats you win!";
-    }
-    else if (playerScore < computerScore) {
-        display.textContent = "Computer Wins, better luck next time";
+        score.textContent = `Player: ${playerScore} Computer: ${computerScore}`;
+        display.textContent = "Congrats, you win!";
     }
     else {
-        display.textContent = "It's a Draw! Nobody wins";
+        score.textContent = `Player: ${playerScore} Computer: ${computerScore}`;
+        display.textContent = "You lost!";
     }
 }
 
-game();
+rockButton.addEventListener("click", () => { game("Rock"); });
+paperButton.addEventListener("click", () => { game("Paper"); });
+scissorsButton.addEventListener("click", () => { game("Scissors"); });
+
+
+function game(playerSelection) {
+    if (gameOver() === true) {
+        winner();
+        return;
+    }
+    if (playRound(playerSelection, computerSelection) === "win") {
+        playerScore++;
+        if (gameOver() === true) {
+            winner();
+            return;
+        }
+        else {
+            display.textContent = "You win! " + playerSelection + " beats " + computerSelection;
+            score.textContent = "Score - You: " + playerScore + " Computer: " + computerScore;
+        }
+    }
+    else if (playRound(playerSelection, computerSelection) === "loss") {
+        computerScore++;
+        if (gameOver() === true) {
+            winner();
+            return;
+        }
+        else {
+            display.textContent = "You lose! " + playerSelection + " loses to " + computerSelection;
+            score.textContent = "Score - You: " + playerScore + " Computer: " + computerScore;
+        }
+    }
+    else {
+        if (gameOver() === true) {
+            winner();
+            return;
+        }
+        else {
+            display.textContent = "It's a Draw! Both chose " + playerSelection;
+            score.textContent = "Score - You: " + playerScore + " Computer: " + computerScore;
+        }
+    }
+    computerSelection = computerPlay();
+}
 
 /*
 
